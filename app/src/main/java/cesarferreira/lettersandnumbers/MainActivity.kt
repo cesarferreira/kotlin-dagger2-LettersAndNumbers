@@ -3,17 +3,24 @@ package cesarferreira.lettersandnumbers
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v7.app.AppCompatActivity
+import cesarferreira.lettersandnumbers.di.AppComponent
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    var numbersFragment: ContentFragment? = null
-    var vowelsFragment: ContentFragment? = null
-    var lettersFragment: ContentFragment? = null
+    private var numbersFragment: ContentFragment? = null
+    private var vowelsFragment: ContentFragment? = null
+    private var lettersFragment: ContentFragment? = null
+
+    private val appComponent: AppComponent by lazy(mode = LazyThreadSafetyMode.NONE) {
+        (application as MyApplication).appComponent
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        appComponent.inject(this)
 
         navigation.setOnNavigationItemSelectedListener(BottomNavigationView.OnNavigationItemSelectedListener { item ->
             when (item.itemId) {
