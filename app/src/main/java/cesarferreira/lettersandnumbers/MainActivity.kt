@@ -8,9 +8,30 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    private var numbersFragment: ContentFragment? = null
-    private var vowelsFragment: ContentFragment? = null
-    private var lettersFragment: ContentFragment? = null
+    /**
+     * Lazy load for the Numbers Fragment
+     */
+    private val numbersFragment: ContentFragment by lazy {
+        val array: ArrayList<String> = arrayListOf("0", "1", "2", "3", "4", "5", "6", "7", "8", "9")
+        ContentFragment.newInstance(array)
+    }
+
+    /**
+     * Lazy load for the Vowels Fragment
+     */
+    private val vowelsFragment: ContentFragment by lazy {
+        val array: ArrayList<String> = arrayListOf("A", "E", "I", "O", "U")
+        ContentFragment.newInstance(array)
+    }
+
+    /**
+     * Lazy load for the Letters Fragment
+     */
+    private val lettersFragment: ContentFragment  by lazy {
+        val array: ArrayList<String> = arrayListOf("A", "B", "C", "D", "E", "F", "G", "H", "I",
+                "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "W", "Y", "Z")
+        ContentFragment.newInstance(array)
+    }
 
     private val appComponent: AppComponent by lazy(mode = LazyThreadSafetyMode.NONE) {
         (application as MyApplication).appComponent
@@ -25,59 +46,22 @@ class MainActivity : AppCompatActivity() {
         navigation.setOnNavigationItemSelectedListener(BottomNavigationView.OnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.navigation_numbers -> {
-                    switchToNumbersFragment()
+                    replaceFragmentWith(numbersFragment)
                     return@OnNavigationItemSelectedListener true
                 }
                 R.id.navigation_vowels -> {
-                    switchToVowelsFragment()
+                    replaceFragmentWith(vowelsFragment)
                     return@OnNavigationItemSelectedListener true
                 }
                 R.id.navigation_all_letters -> {
-                    switchToLettersFragment()
+                    replaceFragmentWith(lettersFragment)
                     return@OnNavigationItemSelectedListener true
                 }
             }
             false
         })
 
-        switchToNumbersFragment()
-    }
-
-    /**
-     * Switch to the Numbers fragment
-     */
-    private fun switchToNumbersFragment() {
-        if (numbersFragment == null) {
-            val array: ArrayList<String> = arrayListOf("0", "1", "2", "3", "4", "5", "6", "7", "8", "9")
-            numbersFragment = ContentFragment.newInstance(array)
-        }
-
-        replaceFragmentWith(numbersFragment!!)
-    }
-
-    /**
-     * Switch to the Vowels fragment
-     */
-    private fun switchToVowelsFragment() {
-        if (vowelsFragment == null) {
-            val array: ArrayList<String> = arrayListOf("A", "E", "I", "O", "U")
-            vowelsFragment = ContentFragment.newInstance(array)
-        }
-
-        replaceFragmentWith(vowelsFragment!!)
-    }
-
-    /**
-     * Switch to the Letters fragment
-     */
-    private fun switchToLettersFragment() {
-        if (lettersFragment == null) {
-            val array: ArrayList<String> = arrayListOf("A", "B", "C", "D", "E", "F", "G", "H", "I",
-                    "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "W", "Y", "Z")
-            lettersFragment = ContentFragment.newInstance(array)
-        }
-
-        replaceFragmentWith(lettersFragment!!)
+        replaceFragmentWith(numbersFragment)
     }
 
     private fun replaceFragmentWith(contentFragment: ContentFragment) {

@@ -6,9 +6,8 @@ import dagger.Component
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = arrayOf(AppModule::class))
+@Component(modules = arrayOf(AppModule::class, ElementsModule::class))
 interface AppComponent {
     fun inject(target: MainActivity)
     fun inject(target: MyApplication)
-
 }
