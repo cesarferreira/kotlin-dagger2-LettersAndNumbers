@@ -1,8 +1,10 @@
 package cesarferreira.lettersandnumbers
 
 
+import android.graphics.Color
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.widget.AppCompatTextView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,13 +14,11 @@ import java.util.*
 
 class ContentFragment : Fragment() {
 
-    private lateinit var randomGenerator: Random
     private lateinit var mItems: ArrayList<String>
+    private var previousCharacter: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        randomGenerator = Random()
 
         if (arguments != null) {
             mItems = arguments!!.getStringArrayList(ARG_PARAM1)
@@ -32,19 +32,44 @@ class ContentFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setRandomCharacter()
+        setRandomCharacter(characterTextView)
 
         characterTextView.setOnClickListener {
-            setRandomCharacter()
+            setRandomCharacter(characterTextView)
         }
     }
 
-    private fun setRandomCharacter() {
-        characterTextView.text = anyItem()
+    private fun setRandomCharacter(textView: AppCompatTextView) {
+        var randomChar: String
+
+        if (previousCharacter.isNullOrEmpty()) {
+            randomChar = getRandomCharacter()
+        } else {
+            do {
+                randomChar = getRandomCharacter()
+            } while (randomChar == previousCharacter)
+        }
+        previousCharacter = randomChar
+
+        textView.text = randomChar
+
+        setRandomColorToTextView(textView)
     }
 
-    private fun anyItem(): String {
-        return mItems[randomGenerator.nextInt(mItems.size)]
+    private fun getRandomCharacter(): String {
+        return mItems[Random().nextInt(mItems.size)]
+    }
+
+    private fun setRandomColorToTextView(textView: AppCompatTextView) {
+        textView.setTextColor(getRandomColor())
+    }
+
+    private fun getRandomColor(): Int {
+        val rnd = Random()
+        return Color.argb(255,
+                rnd.nextInt(200), // R
+                rnd.nextInt(200), // G
+                rnd.nextInt(200)) // B
     }
 
     companion object {
