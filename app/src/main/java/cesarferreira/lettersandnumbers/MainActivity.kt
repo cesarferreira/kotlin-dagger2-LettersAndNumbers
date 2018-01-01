@@ -4,21 +4,21 @@ import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v7.app.AppCompatActivity
 import cesarferreira.lettersandnumbers.di.AppComponent
-import cesarferreira.lettersandnumbers.di.ElementsModule
+import cesarferreira.lettersandnumbers.di.ItemsModule
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 import javax.inject.Named
 
 class MainActivity : AppCompatActivity() {
 
-    @field:[Inject Named(ElementsModule.NUMBERS_ARRAY)]
-    lateinit var numbersList: ArrayList<String>
+    @field:[Inject Named(ItemsModule.NUMBERS_ARRAY)]
+    internal lateinit var numbersList: ArrayList<String>
 
-    @field:[Inject Named(ElementsModule.VOWELS_ARRAY)]
-    lateinit var vowelsList: ArrayList<String>
+    @field:[Inject Named(ItemsModule.VOWELS_ARRAY)]
+    internal lateinit var vowelsList: ArrayList<String>
 
-    @field:[Inject Named(ElementsModule.LETTERS_ARRAY)]
-    lateinit var lettersList: ArrayList<String>
+    @field:[Inject Named(ItemsModule.LETTERS_ARRAY)]
+    internal lateinit var lettersList: ArrayList<String>
 
     private val numbersFragment: ContentFragment by lazy {
         ContentFragment.newInstance(numbersList)

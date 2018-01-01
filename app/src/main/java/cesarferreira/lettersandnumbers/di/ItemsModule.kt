@@ -5,9 +5,8 @@ import dagger.Provides
 import javax.inject.Named
 import javax.inject.Singleton
 
-
 @Module
-class ElementsModule {
+class ItemsModule {
 
     companion object {
         const val NUMBERS_ARRAY: String = "NUMBERS"
@@ -16,21 +15,21 @@ class ElementsModule {
     }
 
     @Provides
-    @PerActivity
+    @Singleton
     @Named(NUMBERS_ARRAY)
     fun providesNumbersArray(): ArrayList<String> {
         return arrayListOf("0", "1", "2", "3", "4", "5", "6", "7", "8", "9")
     }
 
     @Provides
-    @PerActivity
+    @Singleton
     @Named(VOWELS_ARRAY)
     fun providesVowelsArray(): ArrayList<String> {
         return arrayListOf("A", "E", "I", "O", "U")
     }
 
     @Provides
-    @PerActivity
+    @Singleton
     @Named(LETTERS_ARRAY)
     fun providesLettersArray(): ArrayList<String> {
         return arrayListOf("A", "B", "C", "D", "E", "F", "G", "H", "I",
