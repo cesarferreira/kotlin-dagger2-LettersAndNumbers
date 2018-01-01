@@ -5,7 +5,7 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F4F4F4"
+    android:background="#D0D0D0"
     tools:context="cesarferreira.lettersandnumbers.MainActivity">
 
     <FrameLayout
