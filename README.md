@@ -6,7 +6,7 @@
   <img src="extras/ss.png" width="50%" />
 </p>
 
-Example of Android project showing integration with Kotlin and Dagger 2
+<p align="center">Example of Android project showing integration with Kotlin and Dagger 2</p>
 
 ## Created by
 [Cesar Ferreira](https://cesarferreira.com)
