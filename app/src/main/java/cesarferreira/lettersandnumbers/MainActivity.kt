@@ -21,15 +21,15 @@ class MainActivity : AppCompatActivity() {
     internal lateinit var lettersList: ArrayList<String>
 
     private val numbersFragment: ContentFragment by lazy {
-        ContentFragment.newInstance(numbersList)
+        ContentFragment.newInstance(numbersList, R.color.colorNumbers)
     }
 
     private val vowelsFragment: ContentFragment by lazy {
-        ContentFragment.newInstance(vowelsList)
+        ContentFragment.newInstance(vowelsList, R.color.colorVowels)
     }
 
     private val lettersFragment: ContentFragment by lazy {
-        ContentFragment.newInstance(lettersList)
+        ContentFragment.newInstance(lettersList, R.color.colorLetters)
     }
 
     private val appComponent: AppComponent by lazy(mode = LazyThreadSafetyMode.NONE) {

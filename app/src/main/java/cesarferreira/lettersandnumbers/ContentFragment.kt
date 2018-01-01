@@ -1,9 +1,9 @@
 package cesarferreira.lettersandnumbers
 
 
-import android.graphics.Color
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.AppCompatTextView
 import android.view.LayoutInflater
 import android.view.View
@@ -15,13 +15,15 @@ import java.util.*
 class ContentFragment : Fragment() {
 
     private lateinit var mItems: ArrayList<String>
-    private var previousCharacter: String? = null
+    private var mCharactersColor: Int? = null
+    private var mPreviousCharacter: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         if (arguments != null) {
-            mItems = arguments!!.getStringArrayList(ARG_PARAM1)
+            mItems = arguments!!.getStringArrayList(ARG_ITEMS)
+            mCharactersColor = arguments!!.getInt(ARG_CHARACTERS_COLOR)
         }
     }
 
@@ -31,6 +33,10 @@ class ContentFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        mCharactersColor?.let {
+            characterTextView.setTextColor(ContextCompat.getColor(this.context!!, it))
+        }
 
         setRandomCharacter(characterTextView)
 
@@ -42,46 +48,33 @@ class ContentFragment : Fragment() {
     private fun setRandomCharacter(textView: AppCompatTextView) {
         var randomChar: String
 
-        if (previousCharacter.isNullOrEmpty()) {
+        if (mPreviousCharacter.isNullOrEmpty()) {
             randomChar = getRandomCharacter()
         } else {
             do {
                 randomChar = getRandomCharacter()
-            } while (randomChar == previousCharacter)
+            } while (randomChar == mPreviousCharacter)
         }
-        previousCharacter = randomChar
+        mPreviousCharacter = randomChar
 
         textView.text = randomChar
-
-        setRandomColorToTextView(textView)
     }
 
     private fun getRandomCharacter(): String {
         return mItems[Random().nextInt(mItems.size)]
     }
 
-    private fun setRandomColorToTextView(textView: AppCompatTextView) {
-        textView.setTextColor(getRandomColor())
-    }
-
-    private fun getRandomColor(): Int {
-        val rnd = Random()
-        return Color.argb(255,
-                rnd.nextInt(200), // R
-                rnd.nextInt(200), // G
-                rnd.nextInt(200)) // B
-    }
-
     companion object {
-        private val ARG_PARAM1 = "param1"
+        private val ARG_ITEMS = "param_items"
+        private val ARG_CHARACTERS_COLOR = "param_characters_color"
 
-        fun newInstance(arrayList: ArrayList<String>): ContentFragment {
+        fun newInstance(arrayList: ArrayList<String>, colorCharacters: Int): ContentFragment {
             val fragment = ContentFragment()
             val args = Bundle()
-            args.putStringArrayList(ARG_PARAM1, arrayList)
+            args.putStringArrayList(ARG_ITEMS, arrayList)
+            args.putInt(ARG_CHARACTERS_COLOR, colorCharacters)
             fragment.arguments = args
             return fragment
         }
     }
-
 }
