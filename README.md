@@ -3,11 +3,7 @@
 <p align="center">Small app to teach kids how to count and learn the letters</p>
 
 <p align="center">
-  <img src="extras/ss.png" width="60%" />
-</p>
-
-<p align="center">
-  <img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License">
+  <img src="extras/ss.png" width="50%" />
 </p>
 
 Example of Android project showing integration with Kotlin and Dagger 2
