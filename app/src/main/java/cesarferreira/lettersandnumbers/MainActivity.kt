@@ -11,9 +11,14 @@ import javax.inject.Named
 
 class MainActivity : AppCompatActivity() {
 
-    @Inject @Named(ElementsModule.NUMBERS_ARRAY) lateinit var numbersList: ArrayList<String>
-    @Inject @Named(ElementsModule.VOWELS_ARRAY) lateinit var vowelsList: ArrayList<String>
-    @Inject @Named(ElementsModule.LETTERS_ARRAY) lateinit var lettersList: ArrayList<String>
+    @field:[Inject Named(ElementsModule.NUMBERS_ARRAY)]
+    lateinit var numbersList: ArrayList<String>
+
+    @field:[Inject Named(ElementsModule.VOWELS_ARRAY)]
+    lateinit var vowelsList: ArrayList<String>
+
+    @field:[Inject Named(ElementsModule.LETTERS_ARRAY)]
+    lateinit var lettersList: ArrayList<String>
 
     private val numbersFragment: ContentFragment by lazy {
         ContentFragment.newInstance(numbersList)
@@ -23,7 +28,7 @@ class MainActivity : AppCompatActivity() {
         ContentFragment.newInstance(vowelsList)
     }
 
-    private val lettersFragment: ContentFragment  by lazy {
+    private val lettersFragment: ContentFragment by lazy {
         ContentFragment.newInstance(lettersList)
     }
 
